@@ -1,0 +1,51 @@
+# ── Python ──────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+*.log
+
+# ── Database ─────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+healthcare_triage.db
+
+# ── Environment / Secrets ────────────────
+.env
+.env.local
+.env.production
+!.env.example
+
+# ── Node / Vue ───────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+.cache/
+.parcel-cache/
+
+# ── Vite ─────────────────────────────────
+frontend/dist/
+frontend/.vite/
+
+# ── IDE ──────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Docker ───────────────────────────────
+docker-compose.override.yml
