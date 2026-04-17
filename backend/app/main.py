@@ -1,7 +1,10 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 from typing import List
+from pathlib import Path
 import json
 from app.database import init_db
 from app.config import settings
@@ -76,3 +79,13 @@ async def websocket_endpoint(websocket: WebSocket):
 @app.get("/health")
 async def health():
     return {"status": "healthy", "service": "Healthcare Triage AI"}
+
+
+# Serve Vue frontend static files (built output)
+_static_dir = Path(__file__).parent.parent / "static"
+if _static_dir.exists():
+    app.mount("/assets", StaticFiles(directory=str(_static_dir / "assets")), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        return FileResponse(str(_static_dir / "index.html"))

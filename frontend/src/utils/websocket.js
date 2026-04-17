@@ -5,14 +5,8 @@ class WSClient {
   }
 
   connect() {
-    const apiUrl = import.meta.env.VITE_API_URL
-    let wsUrl
-    if (apiUrl) {
-      wsUrl = apiUrl.replace(/^http/, 'ws') + '/ws/cases'
-    } else {
-      const proto = location.protocol === 'https:' ? 'wss' : 'ws'
-      wsUrl = `${proto}://${location.host}/ws/cases`
-    }
+    const proto = location.protocol === 'https:' ? 'wss' : 'ws'
+    const wsUrl = `${proto}://${location.host}/ws/cases`
     this.ws = new WebSocket(wsUrl)
     this.ws.onmessage = e => {
       try {
