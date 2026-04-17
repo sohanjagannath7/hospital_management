@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: healthtriage-backend
+    env: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false          # Set manually in Render dashboard (Neon PostgreSQL URL)
+      - key: GEMINI_API_KEY
+        sync: false          # Set manually in Render dashboard
+      - key: SECRET_KEY
+        generateValue: true  # Render auto-generates a secure value
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 1440
+      - key: BACKEND_CORS_ORIGINS
+        sync: false          # Set to your Vercel frontend URL after deploying
